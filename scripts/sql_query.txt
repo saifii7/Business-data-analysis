@@ -1,0 +1,10 @@
+#What are the top 10 most reviewed restaurants in Philadelphia, and what are their average ratings?
+
+SELECT b.name, b.stars AS rating, r.review_count
+FROM `Final_project_dataset.yelp_academic_dataset_business` b
+JOIN (SELECT business_id, COUNT(*) AS review_count FROM `Final_project_dataset.1_review` GROUP BY business_id) r
+ON b.business_id = r.business_id
+WHERE b.city = 'Philadelphia'
+AND b.categories LIKE '%estaurants%'
+ORDER BY r.review_count DESC
+LIMIT 10;
